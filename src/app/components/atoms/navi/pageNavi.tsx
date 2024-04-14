@@ -67,8 +67,6 @@ export const PageNavi = (props: { url: string, itemList: itemListType }) => {
               {
                 number === (offset + 1) ? <span className='flex items-center px-3 py-2'>{number}</span> : <Link href={1 === number ? `${props.url}` : `${props.url}/page/${number}`} className='flex items-center px-3 py-2'>{number}</Link>
               }
-              {/* <Link href={`${props.url}/page/${number}`} className='flex items-center px-3 py-2'>{number}</Link> */}
-              {/* href={1 === (offset - 1) ? `${props.url}` : `${props.url}/page/${offset - 1}`} */}
             </li>
           ))}
           {

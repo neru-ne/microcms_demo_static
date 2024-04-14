@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createClient } from 'microcms-js-sdk';
 import type { MicroCMSQueries } from "microcms-js-sdk";
-import type { itemListType, itemType } from '@/app/types/api'
+import type { itemListType, itemType, categoriesType } from '@/app/types/api'
 
 
 const MICROCCMS_KEY = process.env.NEXT_PUBLIC_MICROCMS_KEY
@@ -72,6 +72,14 @@ export const getItem = async (
     queries,
   });
 };
+/**
+ * 全件カテゴリー取得
+ */
+export const getCategory = async (
+  queries?: MicroCMSQueries
+) => {
+  return await client.getAllContents<categoriesType>({ endpoint: "item_categories", queries });
+}
 
 /**
  * POSTリクエスト

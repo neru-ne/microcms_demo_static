@@ -1,4 +1,4 @@
-import { getItemList, getAllItemList } from "@/app/api/index"
+import { getItemList } from "@/app/api/index"
 import { PageHeader } from '@/app/components/organisms/PageHeader'
 
 import { MainContents } from '@/app/components/layouts/MainContents'
