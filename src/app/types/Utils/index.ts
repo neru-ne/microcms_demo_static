@@ -10,11 +10,11 @@ export type setActiveCategoryType = {
 
 // meta
 export type metaDataType = {
-  title: string
-  description: string
-  url: string
-  type: string
-  imageUrl: string
+  title?: string
+  description?: string
+  url?: string
+  type: "website" | "article"
+  imageUrl?: string
 }
 
 export type metaDataObjType = {

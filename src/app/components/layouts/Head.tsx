@@ -1,11 +1,8 @@
-import { useRecoilState } from 'recoil';
-import { metaDataAtom } from '@/app/recoil/metaDataAtom'
 import { CommonMeta } from "@/app/components/layouts/CommonMeta"
+import { metaDataType } from '@/app/types/Utils'
 
-export function Head() {
-
-  const [metaData,setMetaData] = useRecoilState(metaDataAtom);
+export function Head(props: metaDataType) {
   return (
-    <CommonMeta {...metaData} />
+    <CommonMeta {...props} />
   )
 }

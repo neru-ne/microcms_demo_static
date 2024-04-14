@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { commonButtonType } from '@/app/types/components'
 
@@ -6,7 +7,7 @@ export const CommonButton = (props: commonButtonType) => {
 
   return (
     mode === "button" ? (
-      <button className={`c-button ${kinds}`} 
+      <button className={`c-button ${kinds}`}
         onClick={() => {
           onClick && onClick();
         }}
