@@ -12,10 +12,8 @@ import { commonButtonType } from '@/app/types/components'
 import { metaDataType } from '@/app/types/Utils'
 import { selectActiveCategory } from '@/app/Utils/item/selectActiveCategory'
 
-const PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEM_PER_PAGE);
 
 export async function generateStaticParams() {
-
   const apiParams = {
     fields: 'slug',
   };

@@ -33,7 +33,7 @@ export const getRequest = (
   params:params,
   timeout: 35000,
 }).then((response) => {
-  // console.log(response)
+  console.log(response)
   return response;
 });
 
@@ -72,13 +72,19 @@ export const getItem = async (
     queries,
   });
 };
+
+interface AllCategoryType {
+  id: string;
+  name: string;
+  slug: string;
+}
 /**
  * 全件カテゴリー取得
  */
 export const getCategory = async (
   queries?: MicroCMSQueries
 ) => {
-  return await client.getAllContents<categoriesType>({ endpoint: "item_categories", queries });
+  return await client.getAllContents<AllCategoryType>({ endpoint: "item_categories", queries });
 }
 
 /**

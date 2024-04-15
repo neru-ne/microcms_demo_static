@@ -82,7 +82,6 @@ export default async function Category({ params }: {
     offset: params.page ? Number(params.page) -1 : 0,
     filters: activeCategory ? `category[contains]${activeCategory.id}` : ``
   };
-  console.log(apiParams)
 
   const itemList = await getItemList(apiParams);
 

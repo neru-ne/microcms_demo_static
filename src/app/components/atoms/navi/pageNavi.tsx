@@ -1,15 +1,11 @@
 import Link from 'next/link'
-// import { useRecoilState } from 'recoil';
-// import { itemListAtom } from '@/app/recoil/itemListAtom';
-
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
-import type { itemListType, itemType } from '@/app/types/api'
-
+import type { itemListType } from '@/app/types/api'
 
 export const PageNavi = (props: { url: string, itemList: itemListType }) => {
 
-  const {itemList} = props;
+  const { itemList } = props;
 
   const PER_PAGE = Number(process.env.NEXT_PUBLIC_ITEM_PER_PAGE);//1ページにおける表示数
   const STEP = 2;//現在のページの前後表示数
@@ -19,8 +15,6 @@ export const PageNavi = (props: { url: string, itemList: itemListType }) => {
   const totalCount = Number(itemList.totalCount);//全記事
   const offset = Number(itemList.offset);//現在のページ数
 
-  const range = (start: number, end: number) =>
-    [...Array(end - start + 1)].map((_, i) => start + i);
 
   let maxPage = Math.ceil(totalCount / PER_PAGE); //全ページ数
   let firstPage = (offset) - STEP; // 表示する最初のページ
@@ -39,6 +33,9 @@ export const PageNavi = (props: { url: string, itemList: itemListType }) => {
       firstFlg = false;
     }
   };
+  if (maxPage < firstPage) {
+    return;
+  }
 
   if (maxPage <= lastPage) {
     lastPage = maxPage
@@ -47,12 +44,15 @@ export const PageNavi = (props: { url: string, itemList: itemListType }) => {
     lastFlg = true
   };
 
+  const range = (start: number, end: number) =>
+    [...Array(end - start + 1)].map((_, i) => start + i);
+
   return (
     <>
       <div className='flex justify-center'>
         <ul className='flex gap-4 mt-1 c-pageNavi'>
           {
-            0 < offset && <li className='flex bg-white rounded-md shadow-md '><Link href={1 === offset ? `${props.url}` :`${props.url}/page/${offset}`} className='flex items-center px-3 py-2'><FaAngleLeft/></Link></li>
+            0 < offset && <li className='flex bg-white rounded-md shadow-md '><Link href={1 === offset ? `${props.url}` : `${props.url}/page/${offset}`} className='flex items-center px-3 py-2'><FaAngleLeft /></Link></li>
           }
           {
             firstFlg && (
@@ -78,7 +78,7 @@ export const PageNavi = (props: { url: string, itemList: itemListType }) => {
             )
           }
           {
-            (offset + 1) < maxPage && <li className='flex bg-white rounded-md shadow-md '><Link href={`${props.url}/page/${offset + 2}`} className='flex items-center px-3 py-2'><FaAngleRight/></Link></li>
+            (offset + 1) < maxPage && <li className='flex bg-white rounded-md shadow-md '><Link href={`${props.url}/page/${offset + 2}`} className='flex items-center px-3 py-2'><FaAngleRight /></Link></li>
           }
         </ul>
       </div>
