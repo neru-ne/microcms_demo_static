@@ -1,4 +1,5 @@
-import { Fragment, useState, useEffect } from 'react';
+'use client';
+import { Fragment, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { contactFormSuccessAtom, contactFormNameAtom, contactFormKindsAtom, contactFormContentsAtom } from '@/app/recoil/contactFormAtom'
 import { postRequest } from '@/app/api'

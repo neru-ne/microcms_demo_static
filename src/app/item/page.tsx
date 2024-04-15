@@ -1,65 +1,47 @@
-"use client"
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import useSWR from 'swr';
-import { useRecoilState } from "recoil";
-import { itemListAtom } from "@/app/recoil/itemListAtom";
-import { metaDataAtom } from '@/app/recoil/metaDataAtom'
-
-import { getRequest } from "@/app/api/index"
+import { getItemList } from "@/app/api/index"
 import { PageHeader } from '@/app/components/organisms/PageHeader'
 
 import { MainContents } from '@/app/components/layouts/MainContents'
 import { Archive } from "@/app/components/organisms/Archive";
-import { ErrorContentsArea } from '@/app/components/molecules/ErrorContentsArea'
 import { PageNavi } from '@/app/components/atoms/navi/pageNavi'
 
-const NEXT_PUBLIC_MICROCMS_URL = process.env.NEXT_PUBLIC_MICROCMS_URL
+import { Head } from '@/app/components/layouts/Head'
 
-export default function Item() {
+//types
+import { metaDataType } from '@/app/types/Utils'
 
-  const [metaData,setMetaData] = useRecoilState(metaDataAtom);
-  //metaデータの設定
-  useEffect(()=>{
-    const metaDataCopy = {...metaData};
-    metaDataCopy.title = "Item"
-    metaDataCopy.description = "itemページです";
-    setMetaData(metaDataCopy);
-  },[])
+export default async function Item() {
 
-  const [itemList, setItemList] = useRecoilState(itemListAtom);
-
-  let params = {
-    limit: process.env.NEXT_PUBLIC_ITEM_PER_PAGE,
+  let apiParams = {
+    limit: Number(process.env.NEXT_PUBLIC_ITEM_PER_PAGE),
     fields: 'id,name,category,kinds,price',
     offset:0
   };
 
-  const searchParams = useSearchParams();
-  const paramsPage = searchParams.get("page");
-  if (paramsPage){
-    params.offset = Number(paramsPage) - 1
+  const itemList = await getItemList(apiParams);
+
+  let errorFlg = false;
+  if (!itemList) {
+    errorFlg = true;
   }
 
-  const { data, error } = useSWR([`${NEXT_PUBLIC_MICROCMS_URL}/item/`, params], ([url, params]) => getRequest(url, params))
-
-
-  useEffect(() => {
-    if (data) {
-      setItemList(data.data);
-    }
-  }, [data])
-
+  //meta
+  const meta: metaDataType = {
+    title: "商品一覧",
+    description: "商品一覧のdescriptionです",
+    url: "",
+    type: "article",
+  }
 
   return (
     <>
+    <Head {...meta} />
       <PageHeader heading={true}>商品</PageHeader>
       <MainContents>
-        <ErrorContentsArea data={data} error={error} />
         {
-          data && itemList && <Archive {...itemList} />
+          itemList && <Archive {...itemList} />
         }
-        <PageNavi url="/item" />
+        <PageNavi url="/item" itemList={itemList} />
       </MainContents>
     </>
   )

@@ -1,22 +1,20 @@
-"use client"
-import { useEffect } from "react";
 import Link from 'next/link';
-import { useRecoilState } from "recoil";
-import { metaDataAtom } from '@/app/recoil/metaDataAtom'
 import { MainContents } from '@/app/components/layouts/MainContents'
+import { Head } from '@/app/components/layouts/Head'
+
+import { metaDataType } from '@/app/types/Utils'
 
 export default function Home() {
 
-  const [metaData,setMetaData] = useRecoilState(metaDataAtom);
-  //metaデータの設定
-  useEffect(()=>{
-    const metaDataCopy = {...metaData};
-    metaDataCopy.type = "website";
-    setMetaData(metaDataCopy);
-  },[])
+  //meta
+  const meta: metaDataType = {
+    url: "",
+    type: "website",
+  }
 
   return (
     <main>
+      <Head {...meta} />
       <MainContents>
         HOME
         <ul>

@@ -15,6 +15,9 @@ import { SearchForm } from '@/app/components/molecules/SearchForm'
 import { SearchCheckForm } from "@/app/components/molecules/SearchCheckForm";
 
 import { Archive } from "@/app/components/organisms/Archive";
+import { Head } from '@/app/components/layouts/Head'
+
+import { metaDataType } from '@/app/types/Utils'
 
 
 const NEXT_PUBLIC_MICROCMS_URL = process.env.NEXT_PUBLIC_MICROCMS_URL
@@ -253,8 +256,17 @@ export default function Search() {
     )
   }
 
+  //meta
+  const meta: metaDataType = {
+    title: "検索",
+    description: "検索のdescriptionです",
+    url: "",
+    type: "article",
+  }
+
   return (
     <>
+      <Head {...meta} />
       <PageHeader heading={true}>検索</PageHeader>
       <MainContents>
         <SearchForm onClick={searchApply} />
