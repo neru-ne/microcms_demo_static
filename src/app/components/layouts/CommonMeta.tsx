@@ -15,11 +15,11 @@ export const CommonMeta = (props: metaDataType) => {
           title ? `${title} | ${siteTitle}` : `microCMS x Next.jsデモサイト`
         }
       </title>
-      <meta name="description" content={description} />
+      <meta name="description" content={description ? description : "共通のdescriptionです"} />
       <meta property="og:title" content={
         title ? `${title} | ${siteTitle}` : `microCMS x Next.jsデモサイト`
       } />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={description ? description : "共通のdescriptionです"} />
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content={siteTitle} />
       <meta property="og:type" content={type} />
